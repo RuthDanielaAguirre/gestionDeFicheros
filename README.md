@@ -17,7 +17,7 @@ A console-based application built in Java to manage folders and `.txt` files loc
 
 Here’s how it looks in the console:
 
-![Preview of the app](assets/example1.png)
+![Preview of the app](assets/ex1.png)
 ![Preview of the app](assets/example2.png)
 
 ---
