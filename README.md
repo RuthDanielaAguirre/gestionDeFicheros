@@ -18,6 +18,7 @@ A console-based application built in Java to manage folders and `.txt` files loc
 Here’s how it looks in the console:
 
 ![Preview of the app](assets/example1.png)
+![Preview of the app](assets/example2.png)
 
 ---
 
@@ -27,23 +28,6 @@ Here’s how it looks in the console:
 - **OpenPDF 2.0.3**
 - Build System: **Apache Ant**
 - IDE: **NetBeans**
-
----
-
-## 📂 Project Structure
-
-GestionFicheros/
-├── lib/ # External libraries
-│ └── openpdf-2.0.3.jar
-├── src/
-│ ├── model/
-│ │ └── Funciones.java # Core logic
-│ └── view/
-│ └── console/
-│ └── Main.java # Interactive menu
-├── build/ # Compiled files (generated)
-└── README.md
-
 
 ---
 
@@ -64,9 +48,6 @@ java -cp build:lib/openpdf-2.0.3.jar view.console.Main
 
 # Windows
 java -cp build;lib/openpdf-2.0.3.jar view.console.Main
-
-📸 Example Usage
-(assets/example1.png)
 
 
 👩‍💻 Author
