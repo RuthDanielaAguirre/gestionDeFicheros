@@ -91,20 +91,20 @@ public class Main {
 
     }
 
- static void createFolder() {
-    System.out.println("Enter the name of the folder: ");
-    String folderName = OpScan.next();
-     String path = System.getProperty("user.dir");
+    static void createFolder() {
+        System.out.println("Enter the name of the folder: ");
+        String folderName = OpScan.next();
+        String path = System.getProperty("user.dir");
         String separator = File.separator;
         String folderPath = path + separator + folderName;
 
-    try {
-        Funciones.createFolder(folderPath);
-        System.out.println("Folder created successfully.");
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
+        try {
+            Funciones.createFolder(folderPath);
+            System.out.println("Folder created successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-}
 
     static void createFile() {
         System.out.println("Enter the folder where you want to add the file: ");
@@ -124,7 +124,7 @@ public class Main {
         System.out.println("Enter the name of the folder: ");
         String folder = OpScan.next();
         String path = System.getProperty("user.dir") + File.separator + folder;
-        
+
         String[] fileList = Funciones.showListFiles(path);
         if (fileList != null && fileList.length > 0) {
             for (String fileName : fileList) {
@@ -139,16 +139,14 @@ public class Main {
         try {
             System.out.println("Enter the folder: ");
             String folder = OpScan.next();
-            
+
             System.out.println("Enter the file: ");
             String fileName = OpScan.next();
             if (!fileName.endsWith(".txt")) {
-    fileName += ".txt";
-}
-            
-            String path = System.getProperty("user.dir") + File.separator + folder;
-            
-            
+                fileName += ".txt";
+            }
+
+            String path = System.getProperty("user.dir") + File.separator + folder;          
             String contenido = Funciones.showFile(path, fileName);
             System.out.println(contenido);
         } catch (Exception ex) {
@@ -157,7 +155,7 @@ public class Main {
     }
 
     static void overWriteFile() {
-          
+
         try {
             System.out.println("Enter the folder name: ");
             String folder = OpScan.next();
@@ -169,37 +167,36 @@ public class Main {
             System.out.println("Enter the body you want to modify: ");
             String content = OpScan.next();
             String path = System.getProperty("user.dir") + File.separator + folder;
-            
+
             boolean result = Funciones.overwriteFile(path, fileName, content);
-            
+
             if (result) {
                 System.out.println("File succesfullly modified");
-            }else{
+            } else {
                 System.out.println("The file does not exist");
             }
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     static void deleteFile() {
         try {
             System.out.println("Enter the folder name: ");
             String folder = OpScan.next();
-            System.out.println("Enther the file name: ");
+            System.out.println("Enter the file name: ");
             String fileName = OpScan.next();
             if (!fileName.endsWith(".txt")) {
                 fileName += ".txt";
             }
             String path = System.getProperty("user.dir") + File.separator + folder;
-            
+
             Funciones.deleteFile(path, fileName);
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-         
+
     }
 
     static void countChars() {
@@ -210,13 +207,13 @@ public class Main {
         if (!fileName.endsWith(".txt")) {
             fileName += ".txt";
         }
-        
+
         String path = System.getProperty("user.dir") + File.separator + folder;
-        
+
         int count = Funciones.countChars(path, fileName);
-        
+
         System.out.println("The number of characters without spaces is: " + count);
-        
+
     }
 
     static void countWords() {
@@ -224,10 +221,10 @@ public class Main {
         String folder = OpScan.next();
         System.out.println("Enter the file name: ");
         String fileName = OpScan.next();
-         if (!fileName.endsWith(".txt")) {
+        if (!fileName.endsWith(".txt")) {
             fileName += ".txt";
         }
-        
+
         String path = System.getProperty("user.dir") + File.separator + folder;
         int totalWords = Funciones.countWords(path, fileName);
         System.out.println("Total of words: " + totalWords);
@@ -236,32 +233,52 @@ public class Main {
     static void swapWords() {
         try {
             System.out.println("Enter the folder name: ");
-            String folder =  OpScan.next();
+            String folder = OpScan.next();
             System.out.println("Enter the file name: ");
             String fileName = OpScan.next();
             if (!fileName.endsWith(".txt")) {
                 fileName += ".txt";
             }
-            
-            String path = System.getProperty("user.dir")+ File.separator + folder;
+
+            String path = System.getProperty("user.dir") + File.separator + folder;
             System.out.println("Enter the word you want to change: ");
             String oldWord = OpScan.next();
             System.out.println("Enter the new word: ");
             String newWord = OpScan.next();
-            
+
             String[] modifiedLines = Funciones.swapWords(path, fileName, oldWord, newWord);
-            
+
             System.out.println("The text was modified: ");
             for (String line : modifiedLines) {
                 System.out.println(line);
             }
-          
+
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-        
+
     }
 
     static void printPDF() {
+        System.out.println("Enter folder name: ");
+        String folder = OpScan.next();
+        String path = System.getProperty("user.dir") + File.separator + folder;
+
+        String[] files = Funciones.showListFiles(path);
+
+        if (files == null || files.length == 0) {
+            System.out.println("No files found.");
+        }
+
+        System.out.println("Select the file to convert to PDF: ");
+        for (int i = 0; i < files.length; i++) {
+            System.out.println(i + ".- " + files[i]);
+        }
+        int opcion = OpScan.nextInt();
+        for (int i = 0; i < files.length; i++) {
+            if (opcion == i) {
+                Funciones.printPDF(path, files[i]);
+            }
+        }
     }
 }

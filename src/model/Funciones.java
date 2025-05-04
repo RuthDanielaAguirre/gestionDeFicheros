@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 
 public class Funciones {
 
@@ -267,12 +272,12 @@ public class Funciones {
 
             List<String> modifiedLine = new ArrayList<>();
             StringBuilder sb = new StringBuilder();
-            boolean changes =false;
+            boolean changes = false;
             String line;
 
             while ((line = br.readLine()) != null) {
                 String modified = line.replace(oldWord, newWord);
-                
+
                 if (!line.equals(modified)) {
                     changes = true;
                 }
@@ -280,17 +285,17 @@ public class Funciones {
                 sb.append(modified).append("\n");
 
             }
-            
-             if (!changes) {
-            return new String[]{"No occurrences of '" + oldWord + "' were found."};
-        }
+
+            if (!changes) {
+                return new String[]{"No occurrences of '" + oldWord + "' were found."};
+            }
             fw = new FileWriter(file, false);
             bw = new BufferedWriter(fw);
             bw.write(sb.toString());
             bw.flush();
-            
+
             return modifiedLine.toArray(new String[0]);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Funciones.class.getName()).log(Level.SEVERE, null, ex);
             return new String[]{"Error: " + ex.getMessage()};
@@ -313,5 +318,56 @@ public class Funciones {
             }
         }
 
+    }
+
+    public static void printPDF(String path, String fileName) {
+        FileReader fr = null;
+        BufferedReader br = null;
+        Document document = new Document();
+
+        try {
+            String filePath = path + File.separator + fileName;
+
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                throw new Exception("File not found.");
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            String outputPdfPath = path + File.separator + "output.pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(outputPdfPath));
+            document.open();
+            document.add(new Paragraph(sb.toString()));
+            System.out.println("PDF created successfully at " + outputPdfPath);
+
+        } catch (IOException | DocumentException ex) {
+            Logger.getLogger(Funciones.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Funciones.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+                if (fr != null) {
+                    fr.close();
+                }
+                if (document.isOpen()) {
+                    document.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Funciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
