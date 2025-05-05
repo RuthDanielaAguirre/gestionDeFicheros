@@ -67,7 +67,7 @@ public class Funciones {
         if (!file.exists()) {
             throw new Exception("The file does not exist");
         }
-        FileWriter fw = new FileWriter(file, false);
+        FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(newContent);
         bw.newLine();
